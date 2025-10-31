@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Mobile-First e Responsive Design --><title> As + Negras Skincare</title>
+    <meta name="description" content="Garanta acesso prioritário e desconto exclusivo ao kit essencial de skincare formulado especialmente para a pele negra. Junte-se à Lista VIP As + Negras.">
+    <!-- Tailwind CSS CDN e Ícones Lucide --><script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Favicon (ícone da aba do navegador) --><link rel="icon" type="image/png" href="/images/LogoLaranjaQueimada.png"> 
+
+    <style>
+        /* Importação das fontes */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap');
+        
+        /* PALETA DE CORES PADRONIZADA (Baseada nos valores do seu código) */
+        :root {
+            --color-terracotta: #a9542b; /* Terracota (Primary/Acento) */
+            --color-green-dark: #585f35; /* Verde Escuro (Contraste/Destaque) */
+            --color-gold: #d09f39; /* Ouro (Secondary/VIP/CTA) */
+            --color-beige: #e4ddcb; /* Bege Claro (Fundo suave) */
+            --color-onyx: #0f0f0f; /* Onyx/Preto (Texto escuro) */
+        }
+
+        /* CORREÇÃO CRÍTICA: Garante que HTML e Body ocupem 100% da largura e altura da viewport */
+        html {
+            height: 100%; 
+            width: 100vw; /* Garante 100% da largura da viewport */
+            overflow-x: hidden; /* Oculta a barra de rolagem horizontal se aparecer */
+            overflow-y: auto; /* Permite rolagem vertical */
+        }
+        
+        body {
+            height: 100%; /* Garante 100% da altura do HTML */
+            width: 100vw; /* Garante 100% da largura da viewport */
+            margin: 0; /* Remove margens padrão do navegador */
+            padding: 0; /* Remove preenchimentos padrão do navegador */
+            overflow-x: hidden; /* Oculta a barra de rolagem horizontal */
+            
+            font-family: 'Inter', sans-serif;
+            color: var(--color-onyx);
+            background-color: #ffffff;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Classes de Cores */
+        .bg-terracotta { background-color: var(--color-terracotta); }
+        .text-terracotta { color: var(--color-terracotta); }
+        .bg-gold { background-color: var(--color-gold); }
+        .text-gold { color: var(--color-gold); }
+        .bg-green-dark { background-color: var(--color-green-dark); }
+        .text-green-dark { color: var(--color-green-dark); }
+        .bg-beige { background-color: var(--color-beige); }
+        .text-onyx { color: var(--color-onyx); }
+        .bg-onyx { background-color: var(--color-onyx); }
+
+        /* Animação para o CTA (Foco na Conversão) */
+        .cta-button {
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 15px rgba(208, 159, 57, 0.4);
+        }
+        .cta-button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(169, 84, 43, 0.6);
+            opacity: 0.8; /* Adicionado para efeito de opacidade ao passar o mouse */
+        }
+
+        /* Hero com Overlay Suave (Manter a imagem com alto contraste) */
+        .hero-overlay-soft {
+             background: rgba(0, 0, 0, 0.45);
+        }
+        
+        /* NOVO: Estilos para Scroll Reveal (Animação ao rolar) */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* NOVO: Animação Pulse para CTA Flutuante */
+        @keyframes subtle-pulse {
+            0% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.03); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.9; }
+        }
+        .cta-float-pulse {
+            animation: subtle-pulse 2s infinite ease-in-out;
+        }
+
+        /* Estilos do Acordeão FAQ */
+        .faq-question summary {
+            cursor: pointer;
+            padding: 1rem 0;
+            font-weight: 600;
+            color: var(--color-terracotta);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-question summary::-webkit-details-marker {
+            display: none;
+        }
+        .faq-question summary::after {
+            content: '\25BC'; /* Seta para baixo */
+            font-size: 1rem;
+            color: var(--color-gold);
+            transform: rotate(0deg);
+            transition: transform 0.3s ease;
+        }
+        .faq-question[open] summary::after {
+            content: '\25B2'; /* Seta para cima */
+        }
+        .faq-question p {
+            padding-bottom: 1rem;
+            color: #4a4a4a;
+            line-height: 1.6;
+        }
+        
+        /* CSS ESPECÍFICO PARA VÍDEO DE FUNDO */
+        .video-background {
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            /* Garante que o vídeo se ajuste ao container */
+            object-fit: cover; 
+            z-index: 1;
+        }
+        /* Overlay Escuro */
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Camada preta semitransparente: 0.6 ou 60% de opacidade */
+            background-color: rgba(0, 0, 0, 0.6); 
+            z-index: 2;
+        }
+
+    </style>
+
+    <!-- RNF.3.2: RASTREAMENTO NA LANDING PAGE PRINCIPAL (/vip) - CÓDIGO BASE GA4 (EXEMPLO) -->
+    <!-- Este é um código de exemplo do Google Tag (gtag.js) para GA4. 
+         SUBSTITUA TUDO ABAIXO com o seu código real. -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EXAMPLE-CONV"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-EXAMPLE-CONV'); // Substitua G-EXAMPLE-CONV pelo seu ID de Medição (Measurement ID) real
+    </script>
+    <!-- FIM DO CÓDIGO BASE GA4 -->
+</head>
+<body>
+    
+    <!-- Top bar (Mantido por ser informativo e discreto) --><div class="w-full text-center text-xs py-2 bg-terracotta text-white">
+        Feito por nós, para nós
+    </div>
+
+    <!-- 
+        NAV - REMOVIDO: A navegação completa foi removida (RNF.2.3: Foco em LP). 
+        Apenas o logo e a mensagem informativa no topo.
+    --><header class="sticky top-0 z-40 bg-white">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 h-16 flex items-center justify-center">
+            <div class="flex items-center gap-3">
+                <!-- LOGO SUBSTITUINDO O TEXTO (RNF.2.2) --><img src="/images/LogoLaranjaQueimada.png" alt="Logo As Mais Negras" class="h-10 object-contain" />
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section --><section id="hero-section" class="relative overflow-hidden flex items-center justify-center text-center text-white min-h-[70vh] md:min-h-[80vh] w-full">
+        
+        <!-- Imagem de Fundo (Totalmente Estática) --><div id="hero-background" class="absolute inset-0 z-0 bg-cover bg-center w-full" 
+             style="background-image: url('/images/banner-site.png');">
+            <!-- Placeholder para a Imagem de alta qualidade (Hero Shot) (RF.2.2) --></div>
+
+        <div class="absolute inset-0 hero-overlay-soft z-10 w-full"></div>
+        
+        <!-- Conteúdo do Hero --><div class="z-20 max-w-4xl mx-auto px-4 py-16 flex flex-col items-center justify-center">
+            <div class="space-y-6">
+                <!-- H1 Moderno e Impactante (Alinhado ao centro por padrão) --><h1 class="text-4xl md:text-6xl font-extrabold font-serif leading-tight text-beige">
+                    O kit essencial em 3 passos que vai mudar sua rotina. Desconto VIP te espera!
+                </h1>
+                <p class="md:text-xl text-beige/90 max-w-2xl mx-auto">
+                    Desenvolvido por mulheres negras, o kit essencial em 3 passos respeita a ciência da sua pele. Pele negra não é diversidade, é especificidade.
+                </p>
+                <div class="flex flex-wrap justify-center gap-4 pt-4">
+                    <!-- CTA PRINCIPAL - Link Direto para o Tally (RF.1) --><a href="javascript:void(0)" onclick="trackConversionAndRedirect('lista_vip_cadastro', 'https://tally.so/r/mY76Vz')" 
+                       class="cta-button rounded-full px-8 py-3 text-lg md:text-xl bg-terracotta text-white font-bold transition-colors duration-300">
+                        QUERO ENTRAR NA LISTA VIP AGORA
+                    </a>
+                </div>
+                <p class="text-xs text-beige/70 mt-2">Vagas limitadas para acesso prioritário e desconto exclusivo.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- NOVO: Seção Detalhada dos 3 Produtos (Fórmula) - Centralizado + Reveal --><section id="formula" class="py-20 bg-beige reveal-on-scroll">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="mx-auto max-w-3xl text-center">
+                <p class="tracking-widest uppercase text-xs mb-2 text-green-dark">Fórmula</p>
+                <h2 class="text-3xl md:text-4xl font-serif leading-tight text-terracotta">O kit em 3 passos: ciência e performance</h2>
+                <p class="mt-3 text-zinc-700 leading-relaxed">Concentrações ajustadas para potência com tolerância na pele negra, sem sensibilizar.</p>
+            </div>
+
+            <!-- Detalhes dos Produtos (Organizado em grid com texto alinhado à esquerda para leitura, mas a seção como um todo é centralizada) --><div class="grid md:grid-cols-3 gap-8 mt-12">
+                
+                <!-- Produto 1: Espuma de Limpeza - NOVO PADRÃO --><div class="rounded-3xl bg-white shadow-xl p-6 text-left reveal-on-scroll flex flex-col">
+                    <!-- Título do Produto (Playfair Display) --><h3 class="font-serif text-2xl text-green-dark mb-4 text-center">1. Espuma</h3>
+                    
+                    <!-- IMAGEM PADRONIZADA AQUI --><img src="/images/espuma.png" alt="Produto Limpeza" class="w-full max-w-full h-96 object-cover rounded-xl mb-6 shadow-md">
+                    
+                    <!-- Subtítulo (Inter/Bold/Terracotta) --><p class="text-terracotta font-semibold mb-4 text-center">Limpeza Suave e Equilibrada</p>
+                    
+                    <!-- Lista de Benefícios (Alinhamento do ícone e texto) --><ul class="space-y-4 text-sm text-onyx">
+                        <li class="flex gap-3 items-start">
+                            <i data-lucide="check-circle" class="w-5 h-5 flex-shrink-0 text-gold mt-0.5"></i>
+                            <span>Extratos de Camomila, Pepino e Aloe Vera — limpeza gentil</span>
+                        </li>
+                        <li class="flex gap-3 items-start">
+                            <i data-lucide="check-circle" class="w-5 h-5 flex-shrink-0 text-gold mt-0.5"></i>
+                            <span>Prepara a pele sem ressecar ou sensibilizar</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Produto 2: Sérum Facial - NOVO PADRÃO --><div class="rounded-3xl bg-white shadow-xl p-6 text-left reveal-on-scroll flex flex-col">
+                    <!-- Título do Produto (Playfair Display) --><h3 class="font-serif text-2xl text-green-dark mb-4 text-center">2. Sérum</h3>
+                    
+                    <!-- IMAGEM PADRONIZADA AQUI --><img src="/images/serun.png" alt="Produto Sérum" class="w-full max-w-full h-96 object-cover rounded-xl mb-6 shadow-md">
+                    
+                    <!-- Subtítulo (Inter/Bold/Terracotta) --><p class="text-terracotta font-semibold mb-4 text-center">Tratamento Focado em Manchas e Tom</p>
+                    
+                    <!-- Lista de Benefícios (Alinhamento do ícone e texto) --><ul class="space-y-4 text-sm text-onyx">
+                        <li class="flex gap-3 items-start">
+                            <i data-lucide="check-circle" class="w-5 h-5 flex-shrink-0 text-gold mt-0.5"></i>
+                            <span>Ácido Glicólico + Extrato de uva — renovação suave e uniformização do tom</span>
+                        </li>
+                        <li class="flex gap-3 items-start">
+                            <i data-lucide="check-circle" class="w-5 h-5 flex-shrink-0 text-gold mt-0.5"></i>
+                            <span>Vitaminas A, C e E — poder antioxidante contra o fotoenvelhecimento</span>
+                        </li>
+                        <li class="flex gap-3 items-start">
+                            <i data-lucide="check-circle" class="w-5 h-5 flex-shrink-0 text-gold mt-0.5"></i>
+                            <span>Colágeno Hidrolisado — elasticidade e hidratação</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Produto 3: Hidratante Facial - NOVO PADRÃO --><div class="rounded-3xl bg-white shadow-xl p-6 text-left reveal-on-scroll flex flex-col">
+                    <!-- Título do Produto (Playfair Display) --><h3 class="font-serif text-2xl text-green-dark mb-4 text-center">3. Hidratante</h3>
+                    
+                    <!-- IMAGEM PADRONIZADA AQUI --><img src="/images/pelenegracomhidratante.png" alt="Produto Hidratante" class="w-full max-w-full h-96 object-cover rounded-xl mb-6 shadow-md">
+                    
+                    <!-- Subtítulo (Inter/Bold/Terracotta) --><p class="text-terracotta font-semibold mb-4 text-center">Hidratação, Barreira e Uniformidade</p>
+                    
+                    <!-- Lista de Benefícios (Alinhamento do ícone e texto) --><ul class="space-y-4 text-sm text-onyx">
+                        <li class="flex gap-3 items-start">
+                            <i data-lucide="check-circle" class="w-5 h-5 flex-shrink-0 text-gold mt-0.5"></i>
+                            <span>Extrato de aroeira + Niacinamida — controle de oleosidade e pigmentação</span>
+                        </li>
+                        <li class="flex gap-3 items-start">
+                            <i data-lucide="check-circle" class="w-5 h-5 flex-shrink-0 text-gold mt-0.5"></i>
+                            <span>Ácido Hialurônico + Extrato de uva — retenção de umidade e preenchimento</span>
+                        </li>
+                        <li class="flex gap-3 items-start">
+                            <i data-lucide="check-circle" class="w-5 h-5 flex-shrink-0 text-gold mt-0.5"></i>
+                            <span>Hidratação profunda sem sensação oleosa</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- CTA Secundário após o detalhe dos produtos - Centralizado --><div class="text-center mt-12 reveal-on-scroll">
+                <a href="javascript:void(0)" onclick="trackConversionAndRedirect('lista_vip_cadastro', 'https://tally.so/r/mY76Vz')" 
+                   class="cta-button inline-block rounded-full px-8 py-3 text-lg bg-terracotta text-white font-bold transition-colors duration-300">
+                    GARANTIR MEU DESCONTO VIP
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- RF.2.4: Provas Sociais (Depoimentos) - Centralizado + Reveal --><!-- Seção com vídeo de fundo e overlay escuro --><section id="depoimentos" class="relative overflow-hidden py-20 min-h-[400px] flex items-center reveal-on-scroll">
+        
+        <!-- VÍDEO DE FUNDO (Background Video) --><video autoplay muted loop playsinline id="backgroundVideo" class="video-background" poster="/videos/asmaisnegras_jaque_may_thai.mp4">
+            <!-- Implementação de múltiplos formatos para máxima compatibilidade --><source src="/videos/asmaisnegras_jaque_may_thai.webm" type="video/webm">
+            <source src="/videos/asmaisnegras_jaque_may_thai.mp4" type="video/mp4">
+            <!-- Fallback text (Texto de fallback) -->Seu navegador não suporta a tag de vídeo.
+        </video>
+
+        <!-- OVERLAY ESCURO E SUAVE (Dark Overlay) --><div class="video-overlay"></div>
+
+        <!-- Conteúdo da Seção (Centralizado, em Z-index alto e cor clara para contraste) --><div class="relative z-10 w-full text-white">
+            <div class="max-w-7xl mx-auto px-4 md:px-8">
+                <div class="mx-auto max-w-3xl text-center">
+                    <p class="tracking-widest uppercase text-xs mb-2 text-gold">Prova social</p>
+                    <h2 class="text-3xl md:text-4xl font-serif leading-tight">O que dizem As + Negras</h2>
+                    <p class="mt-3 text-white/90 leading-relaxed">Feedback das nossas + Negras</p>
+                </div>
+            </div>
+
+            <!-- Depoimentos: (Mantido o grid, mas com texto branco para contraste) --><div class="grid md:grid-cols-3 gap-6 mt-12 max-w-4xl mx-auto px-4">
+                <!-- Depoimento 1 - Ajustado cores do texto --><div class="rounded-3xl bg-white/20 backdrop-blur-sm shadow-xl p-6 border-t-4 border-gold text-left reveal-on-scroll">
+                    <div class="pb-4">
+                        <div class="flex items-center gap-1 text-gold">
+                            <i data-lucide="star" class="w-4 h-4 fill-gold"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-gold"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-gold"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-gold"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-gold"></i>
+                        </div>
+                        <p class="text-white mt-3">“A textura é incrível! O cheirinho é de cuidado e me senti acolhida pelo produto. Amei muito.”</p>
+                        <div class="flex items-center mt-3 gap-2">
+                           <img src="/images/IMG_6930 - camille brito.jpeg" alt="Foto de Camille" class="rounded-full w-10 h-10 object-cover border-2 border-gold">
+                           <p class="text-sm text-white/70">— Camille</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Depoimento 2 - Ajustado cores do texto --><div class="rounded-3xl bg-white/20 backdrop-blur-sm shadow-xl p-6 border-t-4 border-gold text-left reveal-on-scroll">
+                    <div class="pb-4">
+                        <div class="flex items-center gap-1 text-gold">
+                            <i data-lucide="star" class="w-4 h-4 fill-gold"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-gold"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-gold"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-gold"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-gold"></i>
+                        </div>
+                        <p class="text-white mt-3">“Testei os produtos no evento As + Negras e amei! Finalmente vejo um produto que fala com a minha pele.”</p>
+                       <div class="flex items-center mt-3 gap-2">
+                           <img src="/images/IMG_2026Pamela.JPG" alt="Foto de Pâmela" class="rounded-full w-10 h-10 object-cover border-2 border-gold">
+                           <p class="text-sm text-white/70">— Pâmela</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Depoimento 3 - Ajustado cores do texto --><div class="rounded-3xl bg-white/20 backdrop-blur-sm shadow-xl p-6 border-t-4 border-gold text-left reveal-on-scroll">
+                    <div class="pb-4">
+                        <div class="flex items-center gap-1 text-gold">
+                            <i data-lucide="star" class="w-4 h-4 fill-gold"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-gold"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-gold"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-gold"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-gold"></i>
+                        </div>
+                        <p class="text-white mt-3">“Zero ardência. A espuma é muito gentil e o sérum ajuda na textura. Rotina simples e essencial!”</p>
+                       <div class="flex items-center mt-3 gap-2">
+                           <img src="/images/IMG_20250928_172124_1 - Rachel ugc Oladayo.jpg" alt="Foto de Rachel" class="rounded-full w-10 h-10 object-cover border-2 border-gold">
+                           <p class="text-sm text-white/70">— Rachel</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NOVO: Bloco de Redes Sociais Proeminente na LP (Substitui o bloco simples de comunidade) --><section id="social-lp" class="py-16 bg-terracotta text-white text-center reveal-on-scroll">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-3xl font-bold font-serif mb-5">#ComunidadeAsMaisNegras</h2>
+            <p class="text-lg italic font-light mb-8">
+                "Mais que skincare, é representatividade. Junte-se à comunidade que entende e celebra a beleza única da sua pele."
+            </p>
+            
+            <!-- Bloco de Botões de Redes Sociais Prominente --><div class="flex flex-wrap justify-center gap-6">
+                
+                <!-- Instagram Button --><a href="https://www.instagram.com/asmaisnegras/" target="_blank" class="flex items-center space-x-3 bg-white text-terracotta px-8 py-3 rounded-full shadow-lg hover:bg-gold hover:text-onyx transition-all duration-300 transform hover:scale-105" aria-label="Instagram">
+                    <i data-lucide="instagram" class="w-6 h-6"></i>
+                    <span class="font-bold text-lg">Siga no Instagram</span>
+                </a>
+
+                <!-- TikTok/Outra Rede Button --><a href="https://www.tiktok.com/@asmaisnegras" target="_blank" class="flex items-center space-x-3 bg-white text-terracotta px-8 py-3 rounded-full shadow-lg hover:bg-gold hover:text-onyx transition-all duration-300 transform hover:scale-105" aria-label="TikTok">
+                    <svg class="w-6 h-6 text-terracotta" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor">
+                        <path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,14.07C342.39,37.58,348.56,61.13,349.34,80.05c1.23,31.7,3.61,71.74,27.35,104.59s54.67,39.6,90.22,39.6Z"/>
+                    </svg>
+                    <span class="font-bold text-lg">Siga no TikTok</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- RF.2.3: Lista de Beneficios (Bullet Points) - Centralizado + Reveal --><section id="beneficios" class="py-20 reveal-on-scroll">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="mx-auto max-w-3xl text-center">
+                <p class="tracking-widest uppercase text-xs mb-2 text-gold">Resultados</p>
+                <h2 class="text-3xl md:text-4xl font-serif leading-tight text-green-dark">Por Que Ser VIP é Essencial?</h2>
+                <p class="mt-3 text-zinc-600 leading-relaxed">Benefícios que importam no seu kit exclusivo</p>
+            </div>
+            <!-- Grid de Benefícios: Alinhamento de conteúdo à esquerda para leitura, mas os blocos estão centralizados na grade. --><div class="grid md:grid-cols-2 gap-8 mt-12 text-lg">
+                <!-- Adicionado rounded-3xl nos cards de benefício --><div class="rounded-3xl bg-white shadow-xl p-5 border-l-4 border-terracotta transition-shadow hover:shadow-xl text-left mx-auto max-w-lg w-full reveal-on-scroll">
+                    <div class="flex items-start space-x-4">
+                        <i data-lucide="percent" class="w-6 h-6 flex-shrink-0 text-gold mt-1"></i>
+                        <p>
+                            <strong class="text-green-dark block mb-1">Prioridade e Desconto Exclusivo:</strong>
+                            Acesso a um preço de pré-venda que você não encontrará depois.
+                        </p>
+                    </div>
+                </div>
+                <!-- Adicionado rounded-3xl nos cards de benefício --><div class="rounded-3xl bg-white shadow-xl p-5 border-l-4 border-terracotta transition-shadow hover:shadow-xl text-left mx-auto max-w-lg w-full reveal-on-scroll">
+                    <div class="flex items-start space-x-4">
+                        <i data-lucide="package" class="w-6 h-6 flex-shrink-0 text-gold mt-1"></i>
+                        <p>
+                            <strong class="text-green-dark block mb-1">Brinde Especial Garantido:</strong>
+                            Receba um presente exclusivo que só a Lista VIP terá direito no seu primeiro kit.
+                        </p>
+                    </div>
+                </div>
+                <!-- Adicionado rounded-3xl nos cards de benefício --><div class="rounded-3xl bg-white shadow-xl p-5 border-l-4 border-terracotta transition-shadow hover:shadow-xl text-left mx-auto max-w-lg w-full reveal-on-scroll">
+                    <div class="flex items-start space-x-4">
+                        <i data-lucide="flask-conical" class="w-6 h-6 flex-shrink-0 text-gold mt-1"></i>
+                        <p>
+                            <strong class="text-green-dark block mb-1">Fórmulas de Excelência:</strong>
+                            Soluções rigorosamente testadas e criadas para máxima eficácia na pele negra.
+                        </p>
+                    </div>
+                </div>
+                <!-- Adicionado rounded-3xl nos cards de benefício --><div class="rounded-3xl bg-white shadow-xl p-5 border-l-4 border-terracotta transition-shadow hover:shadow-xl text-left mx-auto max-w-lg w-full reveal-on-scroll">
+                    <div class="flex items-start space-x-4">
+                        <i data-lucide="user-plus" class="w-6 h-6 flex-shrink-0 text-gold mt-1"></i>
+                        <p>
+                            <strong class="text-green-dark block mb-1">Comunidade e Representatividade:</strong>
+                            Junte-se a um movimento que celebra o autocuidado e a beleza real.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Como usar (Rotinas) - Centralizado + Reveal --><section id="como-usar" class="py-20 bg-beige reveal-on-scroll">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="mx-auto max-w-3xl text-center">
+                <p class="tracking-widest uppercase text-xs mb-2 text-green-dark">Guia de uso</p>
+                <h2 class="text-3xl md:text-4xl font-serif leading-tight text-terracotta">Duas rotinas, o seu ritmo</h2>
+                <p class="mt-3 text-zinc-700 leading-relaxed">Siga as orientações para melhores resultados. Protetor solar é obrigatório.</p>
+            </div>
+            <!-- Grid de Rotinas: Alinhamento de conteúdo à esquerda para leitura --><div class="grid md:grid-cols-2 gap-6 mt-12">
+                <!-- Adicionado rounded-3xl nos cards de rotina --><div class="rounded-3xl bg-white shadow-xl p-6 border border-zinc-200 text-left mx-auto max-w-lg w-full reveal-on-scroll">
+                    <div class="pb-4 border-b border-zinc-100 mb-4">
+                        <h3 class="font-serif text-xl text-green-dark">Rotina para uso diário)</h3>
+                    </div>
+                    <div class="text-sm text-zinc-700 space-y-3">
+                        <div>
+                            <p class="font-bold text-terracotta">Manhã</p>
+                            <ul class="list-disc pl-5 mt-1 space-y-1">
+                                <li>Limpeza com Espuma de Limpeza</li>
+                                <li>Hidratação com Hidratante Facial</li>
+                                <li>Proteção com protetor solar (obrigatório)</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="font-bold text-terracotta">Noite</p>
+                            <ul class="list-disc pl-5 mt-1 space-y-1">
+                                <li>Limpeza com Espuma de Limpeza</li>
+                                <li>Tratamento com Sérum Facial (uso alternado)</li>
+                                <li>Finalização com Hidratante Facial</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Adicionado rounded-3xl nos cards de rotina --><div class="rounded-3xl bg-white shadow-xl p-6 border border-zinc-200 text-left mx-auto max-w-lg w-full reveal-on-scroll">
+                    <div class="pb-4 border-b border-zinc-100 mb-4">
+                        <h3 class="font-serif text-xl text-green-dark">Rotina preventiva e sensível</h3>
+                    </div>
+                    <div class="text-sm text-zinc-700 space-y-3">
+                        <div>
+                            <p class="font-bold text-terracotta">Rotina Diária (manhã e noite)</p>
+                            <ul class="list-disc pl-5 mt-1 space-y-1">
+                                <li>Limpeza com Espuma de Limpeza</li>
+                                <li>Hidratação com Hidratante Facial</li>
+                                <li>Protetor solar pela manhã</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="font-bold text-terracotta">Uso do Sérum (tratamento intensivo)</p>
+                            <p class="mt-1">Use somente duas vezes por semana, à noite, em noites alternadas, após a limpeza e antes do hidratante.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="text-xs text-zinc-500 mt-6 text-center reveal-on-scroll">Dica: faça teste de sensibilidade antes do uso contínuo. O uso de protetor solar é indispensável.</p>
+        </div>
+    </section>
+
+    <!-- INÍCIO DA NOVA SEÇÃO: FAQ (Perguntas Frequentes) --><section id="faq" class="py-20 reveal-on-scroll">
+        <div class="max-w-4xl mx-auto px-4 md:px-8">
+            <div class="mx-auto max-w-3xl text-center mb-12">
+                <p class="tracking-widest uppercase text-xs mb-2 text-gold">Dúvidas Frequentes</p>
+                <h2 class="text-3xl md:text-4xl font-serif leading-tight text-green-dark">Tiramos suas dúvidas para você entrar na Lista VIP com tranquilidade</h2>
+            </div>
+
+            <!-- Acordeão de FAQ --><div class="border-y border-zinc-200 divide-y divide-zinc-200">
+                
+                <!-- Pergunta 1 --><details class="faq-question">
+                    <summary>O valor do Desconto VIP é válido apenas para o primeiro kit?</summary>
+                    <p>Sim. O desconto é exclusivo e aplicado apenas na compra do seu primeiro Kit Essencial de 3 Passos. Faremos um sorteio das meninas que terão acesso a esse valor exclusivo!</p>
+                </details>
+
+                <!-- Pergunta 2 --><details class="faq-question">
+                    <summary>Quando o kit será lançado e o pagamento será cobrado?</summary>
+                    <p>Ao entrar na Lista VIP, você está apenas manifestando interesse e garantindo seu acesso prioritário. No lançamento (em breve), Você receberá um link de compra exclusivo para efetuar o pagamento e receber o brinde especial na data de lançamento.</p>
+                </details>
+
+                <!-- Pergunta 3 --><details class="faq-question">
+                    <summary>O kit é seguro para peles sensíveis ou com tendência a acne/melasma?</summary>
+                    <p>Nossas fórmulas foram desenvolvidas com concentrações otimizadas para serem potentes na correção de tom e manchas, mas com alta tolerância, minimizando o risco de sensibilização na pele negra.</p>
+                </details>
+                
+                <!-- Pergunta 4 --><details class="faq-question">
+                    <summary>Posso usar os produtos individualmente?</summary>
+                    <p>Sim, todos os produtos podem ser usados separadamente. No entanto, o melhor resultado (limpeza, tratamento e hidratação/proteção da barreira) é alcançado quando os 3 passos são utilizados em conjunto, na rotina dia e noite. O kit foi formulado para ser sinérgico.</p>
+                </details>
+
+            </div>
+        </div>
+    </section>
+    <!-- FIM DA NOVA SEÇÃO: FAQ --><!-- CTA Final e Rodapé - Centralizado + Reveal --><section id="lista-vip" class="py-20 bg-beige reveal-on-scroll">
+        <div class="max-w-3xl mx-auto px-4 md:px-8 text-center">
+            <p class="tracking-widest uppercase text-xs mb-2 text-green-dark">Última chance</p>
+            <h2 class="text-3xl md:text-4xl font-serif leading-tight text-terracotta">Garanta seu acesso VIP antes que a lista feche!</h2>
+            <p class="mt-3 text-zinc-700 leading-relaxed">Prioridade, Desconto e Brinde exclusivo esperam por você.</p>
+            
+            <div class="mt-10">
+                 <!-- CTA PRINCIPAL FINAL - Link Direto para o Tally (RF.1) - Centralizado --><a href="javascript:void(0)" onclick="trackConversionAndRedirect('lista_vip_cadastro', 'https://tally.so/r/mY76Vz')" 
+                   class="cta-button rounded-full px-10 py-4 text-xl bg-gold text-onyx font-bold transition-colors duration-300">
+                    QUERO ENTRAR NA LISTA VIP
+                </a>
+                <p class="text-sm text-zinc-600 mt-4">Clique e cadastre-se.</p>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- NOVO Rodapé Mínimo: Apenas Branding, Sociais e Copyright (Otimizado para Conversão) --><footer id="contato" class="py-10 bg-onyx text-white reveal-on-scroll">
+        <div class="max-w-3xl mx-auto px-4 md:px-8 text-center">
+            
+            <!-- Bloco de Logo e Descrição (Centralizado) --><div class="space-y-4 mx-auto">
+                <div class="flex items-center justify-center gap-3 mb-4">
+                    <img src="/images/LogoLaranjaQueimada.png" alt="Logo As Mais Negras" class="h-8 object-contain" />
+                </div>
+                
+                <p class="text-zinc-400 leading-relaxed max-w-lg mx-auto text-sm">
+                    A marca de skincare criada para celebrar a beleza e atender às necessidades da pele negra com ciência e respeito.
+                </p>
+                
+                <!-- Links de Redes Sociais no Rodapé --><div class="flex gap-4 justify-center pt-2">
+                    <!-- Instagram --><a href="https://www.instagram.com/asmaisnegras/" aria-label="Instagram" target="_blank" class="text-terracotta hover:text-gold transition-colors duration-200">
+                        <i data-lucide="instagram" class="w-6 h-6"></i>
+                    </a>
+                    <!-- TikTok --><a href="https://www.tiktok.com/@asmaisnegras" aria-label="TikTok" target="_blank" class="text-terracotta hover:text-gold transition-colors duration-200">
+                        <!-- SVG para TikTok (mantido) --><svg class="w-6 h-6 text-terracotta" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor">
+                             <path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,14.07C342.39,37.58,348.56,61.13,349.34,80.05c1.23,31.7,3.61,71.74,27.35,104.59s54.67,39.6,90.22,39.6Z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Copyright - Mínimo Essencial --><div class="pt-6 mt-6 border-t border-zinc-700 text-sm text-center text-zinc-500">
+                <p>© 2025 As + Negras — Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating CTA (Otimiza RF.1 e RNF.2.1) - Centralizado na tela mobile - NOVO: Pulse Effect --><div class="fixed bottom-0 left-0 right-0 z-50 p-3 bg-white/95 border-t border-zinc-200 shadow-2xl md:hidden">
+        <a href="javascript:void(0)" onclick="trackConversionAndRedirect('lista_vip_cadastro', 'https://tally.so/r/mY76Vz')" 
+           class="cta-button cta-float-pulse w-full flex items-center justify-center rounded-full px-6 py-3 text-lg bg-gold text-onyx font-bold transition-colors duration-300">
+            QUERO ENTRAR NA LISTA VIP
+        </a>
+    </div>
+
+    <!-- NOVO: Botão Voltar ao Topo (Back to Top) --><button id="backToTopBtn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" 
+            class="fixed bottom-24 right-4 z-50 p-3 rounded-full bg-terracotta text-white shadow-lg opacity-0 transition-opacity duration-300 hover:bg-gold hover:text-onyx md:bottom-8 md:right-8">
+        <i data-lucide="chevron-up" class="w-6 h-6"></i>
+    </button>
+    
+    <script>
+        // Inicializa os ícones do Lucide
+        lucide.createIcons();
+        
+        // Função de throttling para limitar a taxa de execução
+        const throttle = (func, limit) => {
+            let inThrottle;
+            return function() {
+                const context = this;
+                const args = arguments;
+                if (!inThrottle) {
+                    func.apply(context, args);
+                    inThrottle = true;
+                    setTimeout(() => inThrottle = false, limit);
+                }
+            }
+        }
+        
+        // FUNÇÃO DE RASTREAMENTO E REDIRECIONAMENTO (Evento de Conversão GA4)
+        function trackConversionAndRedirect(event_name, url) {
+            // Envia o evento para o GA4 (supondo que a tag base gtag esteja no <head>)
+            // ATENÇÃO: esta linha SÓ FUNCIONARÁ se você tiver inserido o código base do GA4 no <head>!
+            if (typeof gtag === 'function') {
+                gtag('event', event_name, {
+                    'event_category': 'conversion',
+                    'event_label': 'click_lista_vip'
+                });
+            }
+            
+            // Tenta abrir a URL em 100ms para dar tempo ao evento de ser processado
+            // O target="_blank" é mantido aqui
+            setTimeout(function() {
+                window.open(url, '_blank');
+            }, 100);
+        }
+
+
+        // LÓGICA DE INTERSECTION OBSERVER PARA SCROLL REVEAL
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            // A seção será revelada quando 10% dela estiver visível
+            threshold: 0.1 
+        });
+
+        document.querySelectorAll('.reveal-on-scroll').forEach(section => {
+            observer.observe(section);
+        });
+
+        // LÓGICA DO BOTÃO VOLTAR AO TOPO
+        const backToTopBtn = document.getElementById('backToTopBtn');
+        const scrollThreshold = 400; // Distância em pixels para o botão aparecer
+
+        window.addEventListener('scroll', () => {
+             if (window.scrollY > scrollThreshold) {
+                backToTopBtn.classList.add('opacity-100');
+             } else {
+                backToTopBtn.classList.remove('opacity-100');
+             }
+        });
+        
+        // LÓGICA CRÍTICA: GARANTIA DE REPRODUÇÃO CONTÍNUA DO VÍDEO DE FUNDO
+        const backgroundVideo = document.getElementById('backgroundVideo');
+
+        function ensureVideoPlayback() {
+            if (backgroundVideo && backgroundVideo.paused) {
+                // Tenta reiniciar a reprodução
+                backgroundVideo.play().catch(error => {
+                    // console.log("Erro ao reiniciar o vídeo:", error); // Comentado para clean code
+                });
+            }
+        }
+
+        // Verifica o status do vídeo a cada 2 segundos (2000ms)
+        // Isso força a continuidade, mesmo que o navegador tente pausar por otimização.
+        setInterval(ensureVideoPlayback, 2000);
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscrição Confirmada | As + Negras Skincare</title>
+    <!-- CRÍTICO: Impede que a TYP seja indexada por motores de busca -->
+    <meta name="robots" content="noindex, nofollow"> 
+
+    <!-- FAVICON: Ícone da aba do navegador -->
+    <link rel="icon" type="image/png" href="/images/LogoLaranjaQueimada.png"> 
+
+    <!-- Carregamento de Frameworks e Ícones -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Importação das fontes */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap');
+        
+        /* Definição da Paleta de Cores em CSS Variables */
+        :root {
+            --color-terracotta: #a9542b;
+            --color-green-dark: #585f35;
+            --color-gold: #d09f39;
+            --color-beige: #e4ddcb;
+            --color-onyx: #0f0f0f;
+        }
+
+        /* Estilos Globais e Tipografia */
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #333333; /* Texto mais escuro para melhor contraste e legibilidade */
+            background-color: var(--color-beige); 
+            
+            /* Centralização e Layout */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            overflow-x: hidden;
+            padding: 2rem;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Classes de Cores Reutilizáveis (Para cores não-Tailwind) */
+        .bg-terracotta { background-color: var(--color-terracotta); }
+        .text-terracotta { color: var(--color-terracotta); }
+        .text-dark-green { color: var(--color-green-dark); }
+        .text-gold { color: var(--color-gold); }
+
+        /* Estilo para Blocos (Design mais clean, com sombra sutil) */
+        .bg-clean-block { 
+            background-color: white; 
+            border: 1px solid rgba(169, 84, 43, 0.1); /* Borda Terracota suave */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Sombra mais destacada, mas limpa */
+        }
+        
+    </style>
+
+    <!-- CRÍTICO: Tag Global do Google (gtag) e Evento de Conversão (GA4) -->
+    <!-- Este é o código que dispara a conversão de "Lead" no Google Analytics. 
+         SUBSTITUA TUDO ABAIXO com o seu código REAL (ID de Medição e Eventos). -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EXAMPLE-TYP"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      // 1. Tag de Configuração (Substitua G-EXAMPLE-TYP pelo seu ID de Medição)
+      gtag('config', 'G-EXAMPLE-TYP'); 
+      
+      // 2. Evento de Conversão (Dispara o evento 'generate_lead' padrão do GA4)
+      gtag('event', 'generate_lead', {
+          'event_category': 'conversion',
+          'event_label': 'inscricao_lista_vip_concluida'
+      });
+    </script>
+    <!-- FIM DO CÓDIGO DE CONVERSÃO GA4 -->
+</head>
+<body>
+    
+    <!-- CONTEÚDO PRINCIPAL (Centralizado na tela) -->
+    <div class="flex flex-col justify-center items-center p-4 text-gray-800 max-w-4xl w-full">
+        
+        <!-- CABEÇALHO / TÍTULO DA CONFIRMAÇÃO -->
+        <header class="text-center mb-10 p-8 rounded-xl bg-terracotta text-white shadow-xl max-w-lg w-full">
+            <!-- Ícone principal de sucesso -->
+            <i data-lucide="mail-check" class="w-12 h-12 text-gold mb-4 mx-auto"></i>
+            
+            <h1 class="text-3xl sm:text-4xl font-extrabold font-serif text-white mb-3 leading-tight">
+                Inscrição confirmada, pretinha!
+            </h1>
+            <p class="text-xl sm:text-2xl font-light text-white/90">
+                Parabéns, VIP! Seu acesso à pré-venda está garantido.
+            </p>
+        </header>
+
+        <!-- SEÇÃO: PRÓXIMOS PASSOS (Onde o lead deve ser direcionado) -->
+        <section class="text-center mb-12 max-w-xl w-full">
+            <h2 class="text-2xl font-bold font-serif text-dark-green mb-6">Seus Próximos Passos:</h2>
+            <ul class="space-y-4 text-lg text-left p-6 bg-clean-block rounded-xl">
+                <li class="flex items-start">
+                    <!-- Ícone: Contorno Terracota, Preenchimento Transparente -->
+                    <i data-lucide="inbox" class="text-terracotta w-5 h-5 mt-1 mr-3 flex-shrink-0"></i>
+                    <span>Verifique seu e-mail (incluindo Spam). Adicione nosso contato para receber a notificação do lançamento.</span>
+                </li>
+                <li class="flex items-start">
+                    <!-- Ícone: Contorno Terracota, Preenchimento Transparente -->
+                    <i data-lucide="badge-check" class="text-terracotta w-5 h-5 mt-1 mr-3 flex-shrink-0"></i>
+                    <span>Aguarde o lançamento, você será notificada via e-mail e whatsapp.</span>
+                </li>
+            </ul>
+        </section>
+
+        <!-- SEÇÃO: REDES SOCIAIS (Engajamento pós-conversão) -->
+        <section class="text-center mb-10 p-6 rounded-xl bg-clean-block max-w-xl w-full">
+            <h2 class="text-2xl font-bold font-serif text-dark-green mb-5">Junte-se à Comunidade Agora!</h2>
+            <p class="mb-6 text-lg">Siga-nos para conteúdo exclusivo e novidades enquanto aguarda:</p>
+            
+            <!-- Botões de Redes Sociais - Fundo Branco e Borda Terracota -->
+            <div class="flex flex-wrap justify-center gap-6">
+                
+                <!-- Instagram Button: Fundo Branco, Contorno Terracota, Ícone Terracota -->
+                <a href="https://www.instagram.com/asmaisnegras/" target="_blank" class="flex items-center space-x-3 bg-white text-terracotta border-2 border-terracotta px-6 py-3 rounded-full shadow-lg hover:bg-terracotta duration-300 transform hover:scale-105" aria-label="Instagram">
+                    <i data-lucide="instagram" class="w-6 h-6 text-terracotta"></i>
+                    <span class="font-bold text-lg">Instagram</span>
+                </a>
+
+                <!-- TikTok Button (SVG INLINE para garantir compatibilidade): Fundo Branco, Contorno Terracota, Ícone Terracota -->
+                <a href="https://www.tiktok.com/@asmaisnegras" target="_blank" class="flex items-center space-x-3 bg-white text-terracotta border-2 border-terracotta px-6 py-3 rounded-full shadow-lg hover:bg-terracotta transition-all duration-300 transform hover:scale-105" aria-label="TikTok">
+                    <!-- SVG INLINE: Contorno/Preenchimento Terracota -->
+                    <svg class="w-6 h-6 text-terracotta" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor">
+                        <path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,14.07C342.39,37.58,348.56,61.13,349.34,80.05c1.23,31.7,3.61,71.74,27.35,104.59s54.67,39.6,90.22,39.6Z"/>
+                    </svg>
+                    <span class="font-bold text-lg">TikTok</span>
+                </a>
+            </div>
+        </section>
+
+    </div>
+
+
+    <script>
+        // Inicializa os ícones SVG (para o cabeçalho e próximos passos)
+        lucide.createIcons();
+    </script>
+</body>
+</html>
