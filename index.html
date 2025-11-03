@@ -54,7 +54,7 @@
         .bg-green-dark { background-color: var(--color-green-dark); }
         .text-green-dark { color: var(--color-green-dark); }
         .bg-beige { background-color: var(--color-beige); }
-        .text-onyx { color: var(--color-onyx); }
+        .text-onyx { color: color: var(--color-onyx); }
         .bg-onyx { background-color: var(--color-onyx); }
 
         /* Animação para o CTA (Foco na Conversão) */
@@ -123,7 +123,8 @@
             line-height: 1.6;
         }
         
-        /* CSS ESPECÍFICO PARA VÍDEO DE FUNDO */
+        /* CSS ESPECÍFICO PARA VÍDEO/IMAGEM DE FUNDO */
+        /* Esta classe agora se aplica à tag <img> para torná-la responsiva e cobrir o fundo */
         .video-background {
             min-width: 100%;
             min-height: 100%;
@@ -133,7 +134,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            /* Garante que o vídeo se ajuste ao container */
+            /* Garante que a mídia se ajuste ao container */
             object-fit: cover; 
             z-index: 1;
         }
@@ -182,9 +183,12 @@
 
     <!-- Hero Section --><section id="hero-section" class="relative overflow-hidden flex items-center justify-center text-center text-white min-h-[70vh] md:min-h-[80vh] w-full">
         
-        <!-- Imagem de Fundo (Totalmente Estática) --><div id="hero-background" class="absolute inset-0 z-0 bg-cover bg-center w-full" 
+        <!-- Imagem de Fundo (DIV COM background-image RESTAURADO) -->
+        <div id="hero-background" class="absolute inset-0 z-0 bg-cover bg-center w-full" 
              style="background-image: url('/images/banner-site.png');">
-            <!-- Placeholder para a Imagem de alta qualidade (Hero Shot) (RF.2.2) --></div>
+            <!-- Placeholder para a Imagem de alta qualidade (Hero Shot) (RF.2.2) -->
+        </div>
+        <!-- FIM DA DIV DE FUNDO RESTAURADA -->
 
         <div class="absolute inset-0 hero-overlay-soft z-10 w-full"></div>
         
@@ -292,13 +296,16 @@
         </div>
     </section>
 
-    <!-- RF.2.4: Provas Sociais (Depoimentos) - Centralizado + Reveal --><!-- Seção com vídeo de fundo e overlay escuro --><section id="depoimentos" class="relative overflow-hidden py-20 min-h-[400px] flex items-center reveal-on-scroll">
+    <!-- RF.2.4: Provas Sociais (Depoimentos) - Centralizado + Reveal --><!-- Seção com imagem de fundo (Substituindo o vídeo) --><section id="depoimentos" class="relative overflow-hidden py-20 min-h-[400px] flex items-center reveal-on-scroll">
         
-        <!-- VÍDEO DE FUNDO (Background Video) --><video autoplay muted loop playsinline id="backgroundVideo" class="video-background" poster="images/asmaisnegras.png">
-            <!-- Implementação de múltiplos formatos para máxima compatibilidade --><source src="images/asmaisnegras.png" type="video/webm">
-            <source src="images/asmaisnegras.png" type="video/mp4">
-            <!-- Fallback text (Texto de fallback) -->Seu navegador não suporta a tag de vídeo.
-        </video>
+        <!-- IMAGEM DE FUNDO (Substituindo o Vídeo, usando a mesma classe CSS responsiva) -->
+        <img id="background-img-depoimentos" 
+             src="/images/asmaisnegras.png" 
+             alt="Imagem de fundo estática para a seção de depoimentos" 
+             class="video-background" 
+             onerror="this.src='https://placehold.co/1920x1080/585f35/ffffff?text=Fundo+Depoimentos';">
+        <!-- FIM DA TAG <img> -->
+
 
         <!-- OVERLAY ESCURO E SUAVE (Dark Overlay) --><div class="video-overlay"></div>
 
@@ -483,7 +490,7 @@
                         </div>
                         <div>
                             <p class="font-bold text-terracotta">Uso do Sérum (tratamento intensivo)</p>
-                            <p class="mt-1">Use somente duas vezes por semana, à noite, em noites alternadas, após a limpeza e antes do hidratante.</p>
+                            <p class="mt-1">Use somente três vezes por semana, à noite, em noites alternadas, após a limpeza e antes do hidratante.</p>
                         </div>
                     </div>
                 </div>
@@ -577,34 +584,14 @@
             QUERO ENTRAR NA LISTA VIP
         </a>
     </div>
-
-    <!-- NOVO: Botão Voltar ao Topo (Back to Top) --><button id="backToTopBtn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" 
-            class="fixed bottom-24 right-4 z-50 p-3 rounded-full bg-terracotta text-white shadow-lg opacity-0 transition-opacity duration-300 hover:bg-gold hover:text-onyx md:bottom-8 md:right-8">
-        <i data-lucide="chevron-up" class="w-6 h-6"></i>
-    </button>
     
     <script>
         // Inicializa os ícones do Lucide
         lucide.createIcons();
-        
-        // Função de throttling para limitar a taxa de execução
-        const throttle = (func, limit) => {
-            let inThrottle;
-            return function() {
-                const context = this;
-                const args = arguments;
-                if (!inThrottle) {
-                    func.apply(context, args);
-                    inThrottle = true;
-                    setTimeout(() => inThrottle = false, limit);
-                }
-            }
-        }
-        
+
         // FUNÇÃO DE RASTREAMENTO E REDIRECIONAMENTO (Evento de Conversão GA4)
         function trackConversionAndRedirect(event_name, url) {
             // Envia o evento para o GA4 (supondo que a tag base gtag esteja no <head>)
-            // ATENÇÃO: esta linha SÓ FUNCIONARÁ se você tiver inserido o código base do GA4 no <head>!
             if (typeof gtag === 'function') {
                 gtag('event', event_name, {
                     'event_category': 'conversion',
@@ -613,7 +600,6 @@
             }
             
             // Tenta abrir a URL em 100ms para dar tempo ao evento de ser processado
-            // O target="_blank" é mantido aqui
             setTimeout(function() {
                 window.open(url, '_blank');
             }, 100);
@@ -637,34 +623,6 @@
             observer.observe(section);
         });
 
-        // LÓGICA DO BOTÃO VOLTAR AO TOPO
-        const backToTopBtn = document.getElementById('backToTopBtn');
-        const scrollThreshold = 400; // Distância em pixels para o botão aparecer
-
-        window.addEventListener('scroll', () => {
-             if (window.scrollY > scrollThreshold) {
-                backToTopBtn.classList.add('opacity-100');
-             } else {
-                backToTopBtn.classList.remove('opacity-100');
-             }
-        });
-        
-        // LÓGICA CRÍTICA: GARANTIA DE REPRODUÇÃO CONTÍNUA DO VÍDEO DE FUNDO
-        const backgroundVideo = document.getElementById('backgroundVideo');
-
-        function ensureVideoPlayback() {
-            if (backgroundVideo && backgroundVideo.paused) {
-                // Tenta reiniciar a reprodução
-                backgroundVideo.play().catch(error => {
-                    // console.log("Erro ao reiniciar o vídeo:", error); // Comentado para clean code
-                });
-            }
-        }
-
-        // Verifica o status do vídeo a cada 2 segundos (2000ms)
-        // Isso força a continuidade, mesmo que o navegador tente pausar por otimização.
-        setInterval(ensureVideoPlayback, 2000);
-        
     </script>
 </body>
 </html>
